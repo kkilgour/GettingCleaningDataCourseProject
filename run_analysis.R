@@ -31,12 +31,12 @@ colnames(x) <- c[1,]
 y <- data.frame()
 y <- rbind(y, ytrain)
 y <- rbind(y, ytest)
-colnames(y) <- 'Activity'
+colnames(y) <- 'activity'
 
 sub <- data.frame()
 sub <- rbind(sub, subtrain)
 sub <- rbind(sub, subtest)
-colnames(sub) <- 'Subject'
+colnames(sub) <- 'subject'
 
 # Combine into one data frame
 data <- data.frame()
@@ -60,3 +60,7 @@ meancols <- grep(".*?(mean)", names(data))
 stdcols <- grep(".*?(std)", names(data))
 df <- data[, c(meancols, stdcols, 562, 563)]
 
+# Step 3: Use descriptive activity names
+al <- data.frame()
+al <- read.csv('./UCI HAR Dataset/activity_labels.txt', sep='', header=FALSE)
+df$activity <- al[df$activity,2]
