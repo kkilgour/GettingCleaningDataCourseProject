@@ -55,3 +55,8 @@ rm(y)
 rm(sub)
 
 # Step 2: Extract only mean and standard deviation measurements
+# Thanks to http://txt2re.com/index.php3?s=fBodyBodyAccJerkMag-mean()&-3 for the regex generation
+meancols <- grep(".*?(mean)", names(data))
+stdcols <- grep(".*?(std)", names(data))
+df <- data[, c(meancols, stdcols, 562, 563)]
+
