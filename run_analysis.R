@@ -64,3 +64,27 @@ df <- data[, c(meancols, stdcols, 562, 563)]
 al <- data.frame()
 al <- read.csv('./UCI HAR Dataset/activity_labels.txt', sep='', header=FALSE)
 df$activity <- al[df$activity,2]
+
+# Step 4: Make variable names a bit more readable
+colnames(df) <- gsub("-|\\()", "", colnames(df))
+
+# Step 5: Export as second tidy dataset
+df$fac <- paste(df$subject, df$activity)
+cols <- 1:79
+m <- matrix(nrow=180, ncol=0)
+end <- data.frame(m)
+for (i in cols) {
+	e <- tapply(df[,i], df$fac, mean)
+	end <- cbind(end, e)
+}
+colnames(end) <- colnames(df[1:79])
+
+# Split rownames up and cbind
+#is <- 1:180
+#act <- data.frame()
+#subject <- data.frame()
+#r <- strsplit(rownames(end)," ")
+#for (i in is) {
+#	subject <- rbind(rn, r[[i]][1])
+#	act <- rbind(rn, r[[i]][2])
+#}
