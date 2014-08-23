@@ -1,3 +1,4 @@
+# Step 1: Combine train and test sets
 # Read individual files
 xtrain <- data.frame()
 xtrain <- rbind(xtrain, read.csv('./UCI HAR Dataset/train/X_train.txt', sep='', header=FALSE))
@@ -22,13 +23,20 @@ x <- data.frame()
 x <- rbind(x, xtrain)
 x <- rbind(x, xtest)
 
+# Set column name for x
+cn <- read.csv('./UCI HAR Dataset/features.txt', sep='', header=FALSE)
+c <- t(cn$V2)
+colnames(x) <- c[1,]
+
 y <- data.frame()
 y <- rbind(y, ytrain)
 y <- rbind(y, ytest)
+colnames(y) <- 'Activity'
 
 sub <- data.frame()
 sub <- rbind(sub, subtrain)
 sub <- rbind(sub, subtest)
+colnames(sub) <- 'Subject'
 
 # Combine into one data frame
 data <- data.frame()
@@ -46,3 +54,4 @@ rm(x)
 rm(y)
 rm(sub)
 
+# Step 2: Extract only mean and standard deviation measurements
