@@ -69,7 +69,6 @@ df$activity <- al[df$activity,2]
 colnames(df) <- gsub("-|\\()", "", colnames(df))
 
 # Step 5: Export as second tidy dataset
-#df$fac <- paste(df$subject, df$activity)
 cols <- 1:79
 m <- matrix(nrow=180, ncol=0)
 end <- data.frame(m)
