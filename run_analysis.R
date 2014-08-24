@@ -69,15 +69,19 @@ df$activity <- al[df$activity,2]
 colnames(df) <- gsub("-|\\()", "", colnames(df))
 
 # Step 5: Export as second tidy dataset
-df$fac <- paste(df$subject, df$activity)
+#df$fac <- paste(df$subject, df$activity)
 cols <- 1:79
 m <- matrix(nrow=180, ncol=0)
 end <- data.frame(m)
 for (i in cols) {
-	e <- tapply(df[,i], df$fac, mean)
+    e <- tapply(df[,i],list(df[,80],df[,81]), mean)
+    # Flatten the matrix produced in e
+    dim(e) <- NULL
 	end <- cbind(end, e)
 }
-colnames(end) <- colnames(df[1:79])
+end <- cbind(end, rep(1:30, 6))
+end <- cbind(end, c(rep("LAYING",30), rep("SITTING",30), rep("STANDING",30), rep("WALKING",30), rep("WALKING_DOWNSTAIRS",30), rep("WALKING_UPSTAIRS",30)))
+colnames(end) <- colnames(df)
 
 # Split rownames up and cbind
 #is <- 1:180
@@ -88,3 +92,5 @@ colnames(end) <- colnames(df[1:79])
 #	subject <- rbind(rn, r[[i]][1])
 #	act <- rbind(rn, r[[i]][2])
 #}
+
+
