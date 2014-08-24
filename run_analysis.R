@@ -83,14 +83,6 @@ end <- cbind(end, rep(1:30, 6))
 end <- cbind(end, c(rep("LAYING",30), rep("SITTING",30), rep("STANDING",30), rep("WALKING",30), rep("WALKING_DOWNSTAIRS",30), rep("WALKING_UPSTAIRS",30)))
 colnames(end) <- colnames(df)
 
-# Split rownames up and cbind
-#is <- 1:180
-#act <- data.frame()
-#subject <- data.frame()
-#r <- strsplit(rownames(end)," ")
-#for (i in is) {
-#	subject <- rbind(rn, r[[i]][1])
-#	act <- rbind(rn, r[[i]][2])
-#}
-
+# Write the file out
+write.table(end, file="tidy.txt", row.names=FALSE)
 
